@@ -4,6 +4,7 @@ const webpack = require('webpack')
 const ExtractPlugin = require('extract-text-webpack-plugin')
 const merge = require('webpack-merge')
 const baseConfig = require('./webpack.config.base')
+const VueLoaderPlugin = require('vue-loader/lib/plugin')
 
 const isDev = process.env.NODE_ENV === 'development'
 
@@ -15,7 +16,8 @@ const defaultPlugins = [
       NODE_ENV: isDev ? '"development"' : '"production"'
     }
   }),
-  new HTMLPlugin()
+  new HTMLPlugin(),
+  new VueLoaderPlugin()
 ]
 
 const devServer = {
@@ -51,14 +53,14 @@ if (isDev) {
     devServer,
     plugins: defaultPlugins.concat([
       new webpack.HotModuleReplacementPlugin(),
-      new webpack.NoEmitOnErrorsPlugin()
+      // new webpack.NoEmitOnErrorsPlugin()
     ])
   })
 } else {
   config = merge(baseConfig, {
     entry: {
       app: path.join(__dirname, '../client/index.js'),
-      vendor: ['vue']
+      // vendor: ['vue']
     },
     output: {
       filename: '[name].[chunkhash:8].js'
@@ -83,14 +85,20 @@ if (isDev) {
         }
       ]
     },
+    optimization: {
+      splitChunks: {
+        chunks: 'all'
+      },
+      runtimeChunk: true
+    },
     plugins: defaultPlugins.concat([
-      new ExtractPlugin('styles.[contentHash:8].css'),
-      new webpack.optimize.CommonsChunkPlugin({
-        name: 'vendor'
-      }),
-      new webpack.optimize.CommonsChunkPlugin({
-        name: 'runtime'
-      })
+      new ExtractPlugin('styles.[hash:8].css'),
+      // new webpack.optimize.CommonsChunkPlugin({
+      //   name: 'vendor'
+      // }),
+      // new webpack.optimize.CommonsChunkPlugin({
+      //   name: 'runtime'
+      // })
     ])
   })
 }
