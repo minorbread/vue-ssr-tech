@@ -7,6 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build:client": "cross-env NODE_ENV=production webpack --profile --progress --colors --config build/webpack.config.client.js",
     "build": "npm run clean && npm run build:client",
+    "practice": "cross-env NODE_ENV=development webpack-dev-server --profile --progress --colors --config build/webpack.config.practice.js",
     "dev": "cross-env NODE_ENV=development webpack-dev-server --profile --progress --colors --config build/webpack.config.client.js",
     "lint": "eslint --ext .js --ext .jsx --ext .vue client/",
     "lint-fix": "eslint --fix --ext .js --ext .jsx --ext .vue client/",
