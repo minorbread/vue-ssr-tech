@@ -2,6 +2,8 @@
   <div id="app">
     <div id="cover"></div>
     <Header></Header>
+    <p>{{counter}}</p>
+    <p>{{fullName}}</p>
     <!-- <todo></todo> -->
     <!-- <router-link :to="{name: 'app'}">app</router-link> -->
     <router-link to="/app/123">app2</router-link>
@@ -17,6 +19,7 @@
 </template>
 
 <script>
+import { mapState, mapGetters, mapMutations, mapActions } from 'vuex'
 import Header from './layout/header.vue'
 import Footer from './layout/footer.jsx'
 // import Todo from './views/todo/todo.vue'
@@ -27,8 +30,33 @@ export default {
     Footer
     // Todo
   },
+  methods: {
+    ...mapActions(['updateCountAsync']),
+    ...mapMutations(['updateCount'])
+  },
   mounted() {
     console.log(this.$route)
+    console.log(this.$store)
+    // let i = 1
+    this.updateCountAsync({
+      num: 5,
+      time: 2000
+    })
+    // setInterval(() => {
+    //   this.$store.commit('updateCount', { num: i++, num2: 2 })
+    // }, 1000)
+  },
+  computed: {
+    ...mapState({
+      counter: (state) => state.count
+    }),
+    ...mapGetters(['fullName'])
+    // count() {
+    //   return this.$store.state.count
+    // },
+    // fullName() {
+    //   return this.$store.getters.fullName
+    // }
   }
 }
 </script>
