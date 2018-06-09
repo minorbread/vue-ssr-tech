@@ -16,7 +16,9 @@ const defaultPlugins = [
       NODE_ENV: isDev ? '"development"' : '"production"'
     }
   }),
-  new HTMLPlugin(),
+  new HTMLPlugin({
+    template: path.join(__dirname, 'template.html')
+  }),
   new VueLoaderPlugin()
 ]
 
@@ -26,7 +28,8 @@ const devServer = {
     overlay: {
       errors: true,
     },
-    hot: true
+    hot: true,
+    historyApiFallback: true
 }
 
 if (isDev) {
