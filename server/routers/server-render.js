@@ -11,12 +11,15 @@ module.exports = async (ctx, renderer, template) => {
     console.log('context', context)
     const appString = await renderer.renderToString(context)
 
+    const { title } = context.meta.inject()
+
     console.log('(((((((((((((((((((((((((((((((((((((((((((((((((')
     console.log('appString', appString)
     const html = ejs.render(template, {
       appString,
       style: context.renderStyles(),
-      scripts: context.renderScripts()
+      scripts: context.renderScripts(),
+      title: title.text()
     })
     ctx.body = html
   } catch (err) {
