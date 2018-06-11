@@ -9,7 +9,7 @@ const VueServerPlugin = require('vue-server-renderer/server-plugin')
 let config
 
 config = merge(baseConfig, {
-  target: node,
+  target: 'node',
   entry: path.join(__dirname, '../client/server.entry.js'),
   devtool: 'source-map',
   output: {
