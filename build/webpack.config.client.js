@@ -31,7 +31,8 @@ const devServer = {
       errors: true,
     },
     hot: true,
-    historyApiFallback: true
+    historyApiFallback: true,
+    headers: { 'Access-Control-Allow-Origin': '*' }
 }
 
 if (isDev) {

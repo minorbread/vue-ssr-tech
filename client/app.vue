@@ -4,11 +4,29 @@
     <Header></Header>
     <!-- <todo></todo> -->
     <!-- <router-link :to="{name: 'app'}">app</router-link> -->
+<!--     <tabs>
+      <tab label="text">
+        <span slot="label"></span>
+        <p>This is tab content</p>
+      </tab>
+      <tab></tab>
+      <tab></tab>
+    </tabs>
+    <ul>
+      <li>label1</li>
+      <li>label2</li>
+    </ul>
+    <div class="tab-container">
+      This is tab content
+    </div> -->
+
     <router-link to="/app">app2</router-link>
     <router-link to="/login">login</router-link>
     <transition name="fade">
       <router-view />
     </transition>
+    <!-- <notification content="test notify" /> -->
+    <button @click="notify">notify</button>
     <Footer></Footer>
     <!-- <router-view name="a" /> -->
   </div>
@@ -32,6 +50,12 @@ export default {
   methods: {
     // ...mapActions([]),
     // ...mapMutations([])
+    notify() {
+      this.$notify({
+        content: 'test $notify',
+        btn: 'close'
+      })
+    }
   },
   mounted() {
   },
