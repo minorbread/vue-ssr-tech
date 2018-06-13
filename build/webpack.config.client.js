@@ -25,14 +25,18 @@ const defaultPlugins = [
 ]
 
 const devServer = {
-    port: 8000,
-    host: '0.0.0.0',
-    overlay: {
-      errors: true,
-    },
-    hot: true,
-    historyApiFallback: true,
-    headers: { 'Access-Control-Allow-Origin': '*' }
+  port: 8000,
+  host: '0.0.0.0',
+  overlay: {
+    errors: true,
+  },
+  hot: true,
+  historyApiFallback: true,
+  headers: { 'Access-Control-Allow-Origin': '*' },
+  proxy: {
+    '/api': 'http://127.0.0.1:3333',
+    '/user': 'http://127.0.0.1:3333'
+  }
 }
 
 if (isDev) {
