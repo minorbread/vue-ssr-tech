@@ -4,6 +4,10 @@ export default context => {
   return new Promise((resolve, reject) => {
     const { app, router, store } = createApp()
 
+    if (context.user) {
+      store.state.user = context.user
+    }
+
     router.push(context.url)
 
     router.onReady(() => {
@@ -20,6 +24,7 @@ export default context => {
         }
       })).then(data => {
         context.meta = app.$meta()
+        context.state = store.state
         resolve(app)
       })
     })
