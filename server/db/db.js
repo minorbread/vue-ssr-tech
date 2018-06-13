@@ -21,7 +21,6 @@ const handleRequest = ({ status, data, ...rest }) => {
   }
 }
 
-
 module.exports = (appId, appKey) => {
   const getHeaders = () => {
     const now = Date.now()
@@ -32,7 +31,7 @@ module.exports = (appId, appKey) => {
   }
   return {
     async getAllTodos() {
-      return handleRequest(await request.get(`/${className}`,{
+      return handleRequest(await request.get(`/${className}`, {
         headers: getHeaders()
       }))
     },
