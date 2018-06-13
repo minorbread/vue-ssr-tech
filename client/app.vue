@@ -2,6 +2,9 @@
   <div id="app">
     <div id="cover"></div>
     <Header></Header>
+    <div id="loading" v-show="loading">
+      <loading></loading>
+    </div>
     <!-- <todo></todo> -->
     <!-- <router-link :to="{name: 'app'}">app</router-link> -->
 <!--     <tabs>
@@ -22,7 +25,7 @@
 
     <router-link to="/app">app2</router-link>
     <router-link to="/login">login</router-link>
-    <transition name="fade">
+    <transition name="fade" mode="out-in">
       <router-view />
     </transition>
     <!-- <notification content="test notify" /> -->
@@ -34,9 +37,11 @@
 
 <script>
 // import { mapState, mapGetters, mapMutations, mapActions } from 'vuex'
+import { mapState } from 'vuex'
 import Header from './layout/header.vue'
 import Footer from './layout/footer.jsx'
 // import Todo from './views/todo/todo.vue'
+import Loading from './components/loading/loading.vue'
 
 export default {
   metaInfo: {
@@ -44,7 +49,8 @@ export default {
   },
   components: {
     Header,
-    Footer
+    Footer,
+    Loading
     // Todo
   },
   methods: {
@@ -60,7 +66,8 @@ export default {
   mounted() {
   },
   computed: {
-    // ...mapState({ }),
+    ...mapState(['loading'])
+    // ...mapState({ })
     // ...mapGetters({ })
   }
 }
@@ -84,6 +91,19 @@ export default {
   opacity .9
   z-index -1
 }
+#loading{
+  position fixed
+  top 0
+  right 0
+  bottom 0
+  left 0
+  background-color rgba(255,255,255,.3)
+  z-index 99
+  display flex
+  align-items center
+  justify-content center
+}
+
 </style>
 
 
