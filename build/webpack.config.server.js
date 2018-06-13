@@ -5,8 +5,24 @@ const baseConfig = require('./webpack.config.base')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const ExtractPlugin = require('extract-text-webpack-plugin')
 const VueServerPlugin = require('vue-server-renderer/server-plugin')
+// const VueServerPlugin = require('vue-server-renderer/server-plugin')
 
 let config
+
+const isDev = process.env.NODE_ENV === 'development'
+
+const plugins = [
+  new ExtractPlugin('styles.[hash:8].css'),
+  new webpack.DefinePlugin({
+    'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
+    'process.env.VUE_ENV': '"server"'
+  }),
+  // new VueServerPlugin(),
+  new VueLoaderPlugin()
+]
+if (isDev) {
+  plugins.push(new VueServerPlugin())
+}
 
 config = merge(baseConfig, {
   target: 'node',
@@ -38,15 +54,7 @@ config = merge(baseConfig, {
       }
     ]
   },
-  plugins: [
-    new ExtractPlugin('styles.[hash:8].css'),
-    new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
-      'process.env.VUE_ENV': '"server"'
-    }),
-    new VueServerPlugin(),
-    new VueLoaderPlugin()
-  ]
+  plugins
 })
 
 config.resolve = {

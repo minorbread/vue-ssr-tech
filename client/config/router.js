@@ -1,6 +1,6 @@
 import Todo from '../views/todo/todo.vue'
 import Login from '../views/login/login.vue'
-
+/* webpackChunk: 'login-view' */
 export default [
   {
     path: '/',
