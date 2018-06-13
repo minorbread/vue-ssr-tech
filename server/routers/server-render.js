@@ -11,6 +11,10 @@ module.exports = async (ctx, renderer, template) => {
     console.log('context', context)
     const appString = await renderer.renderToString(context)
 
+    if (context.router.currentRoute.fullPath !== ctx.path) {
+      return ctx.redirect(context.router.currentRoute.fullPath)
+    }
+
     const { title } = context.meta.inject()
 
     console.log('(((((((((((((((((((((((((((((((((((((((((((((((((')
